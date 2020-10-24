@@ -1,0 +1,916 @@
+
+<style>
+    body {
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+        background-color: #CCC;
+    }
+    a{
+      text-decoration: none;
+      font-weight: bold;
+    }
+    .box{
+        position: relative;
+        float:left;
+        border: 1px solid #b1aeae;
+        margin: 10px;
+        padding: 10px;
+        border-radius: 10px;
+        width: 90%;
+        background-color: #FFF;
+    }
+    
+    table{
+        font-size: 12px;
+        position: relative;
+        float:left;
+        margin: 5px;
+        padding: 2px;
+        border:1px solid #b1aeae;
+    }
+    .boton {
+	cursor:pointer;
+	background-color:#123312;
+	width:120px;
+	height:30px;
+	border-radius:10px;
+  color: #FFF;
+  }
+  .boton:hover{
+	background-color:#72793a;
+  }
+  .boton_eli{
+    cursor:pointer;
+    background-color:#99040b;
+    width:30px;
+    height:30px;
+    border-radius:20px;
+    color: #FFF;
+    display: inline;
+    text-align: center;
+    font-weight:900;
+  }
+  .boton_eli:hover{
+    background-color:#fc020f;
+  } 
+</style>
+
+    <!--  **************    AGREGAR  ***********    -->
+    <div style="background-color: #b1aeae; padding: 20px; height: 200px; text-align: center; border-radius: 20px;">
+      <table width="90%" border="0" cellspacing="0" cellpadding="4" style="text-align: center; width:100%; background-color:#CCC; padding:5px;">
+        <tr style="text-align: center;">
+          <td colspan="7" style="text-align:left">NOMBRE: <input type="text" id="nombre">&nbsp;&nbsp;CODIGO: <input type="text" id="codigo" size="1" maxlength="5"></td>
+        </tr>
+        <tr style="text-align: center;">
+          <td>&nbsp;</td>
+          <td><input type="checkbox" id="lun{{turno.id}}" {% if turno.dias.0 == "1" %} checked {% endif %}>LUN</td>
+          <td><input type="checkbox" id="mar{{turno.id}}" {% if turno.dias.1 == "1" %} checked {% endif %}>MAR</td>
+          <td><input type="checkbox" id="mie{{turno.id}}" {% if turno.dias.2 == "1" %} checked {% endif %}>MIE</td>
+          <td><input type="checkbox" id="jue{{turno.id}}" {% if turno.dias.3 == "1" %} checked {% endif %}>JUE</td>
+          <td><input type="checkbox" id="vie{{turno.id}}" {% if turno.dias.4 == "1" %} checked {% endif %}>VIE</td>
+          <td><input type="checkbox" id="sab{{turno.id}}" {% if turno.dias.5 == "1" %} checked {% endif %}>SAB</td>
+          <td><input type="checkbox" id="dom{{turno.id}}" {% if turno.dias.6 == "1" %} checked {% endif %}>DOM</td>
+        </tr>
+        <tr>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+          <td>&nbsp;</td>
+        </tr>
+        <tr>
+          <td bgcolor="#999999">INICIO</td>
+          <td>
+            <label for="hora_inicio_lun"></label>
+            <select name="hora_inicio_lun" id="hora_inicio_lun">
+              <option value="00">00</option>
+              <option value="01">01</option>
+              <option value="02">02</option>
+              <option value="03">03</option>
+              <option value="04">04</option>
+              <option value="05">05</option>
+              <option value="06">06</option>
+              <option value="07">07</option>
+              <option value="08">08</option>
+              <option value="09" selected="selected">09</option>
+              <option value="10">10</option>
+              <option value="11">11</option>
+              <option value="12">12</option>
+              <option value="13">13</option>
+              <option value="14">14</option>
+              <option value="15">15</option>
+              <option value="16">16</option>
+              <option value="17">17</option>
+              <option value="18">18</option>
+              <option value="19">19</option>
+              <option value="20">20</option>
+              <option value="21">21</option>
+              <option value="22">22</option>
+              <option value="23">23</option>
+            </select>
+            :
+            <select name="min_inicio_lun" id="min_inicio_lun">
+              <option value="00">00</option>
+              <option value="10">10</option>
+              <option value="15">15</option>
+              <option value="20">20</option>
+              <option value="25">25</option>
+              <option value="30">30</option>
+              <option value="35">35</option>
+              <option value="40">40</option>
+              <option value="45">45</option>
+              <option value="50">50</option>
+              <option value="55">55</option>
+          </select></td>
+          <td><select name="hora_inicio_mar" id="hora_inicio_mar">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09" selected="selected">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_inicio_mar" id="min_inicio_mar">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_inicio_mie" id="hora_inicio_mie">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09" selected="selected">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_inicio_mie" id="min_inicio_mie">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_inicio_jue" id="hora_inicio_jue">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09" selected="selected">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_inicio_jue" id="min_inicio_jue">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_inicio_vie" id="hora_inicio_vie">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09" selected="selected">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_inicio_vie" id="min_inicio_vie">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_inicio_sab" id="hora_inicio_sab">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09" selected="selected">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_inicio_sab" id="min_inicio_sab">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_inicio_dom" id="hora_inicio_dom">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09" selected="selected">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_inicio_dom" id="min_inicio_dom">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+        </tr>
+        <tr>
+          <td height="10" colspan="8"></td>
+        </tr>
+        <tr>
+          <td bgcolor="#999999">FIN</td>
+          <td><select name="hora_fin_lun" id="hora_fin_lun">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18" selected="selected">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_fin_lun" id="min_fin_lun">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_fin_mar" id="hora_fin_mar">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18" selected="selected">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_fin_mar" id="min_fin_mar">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_fin_mie" id="hora_fin_mie">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18" selected="selected">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_fin_mie" id="min_fin_mie">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_fin_jue" id="hora_fin_jue">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18" selected="selected">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_fin_jue" id="min_fin_jue">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_fin_vie" id="hora_fin_vie">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18" selected="selected">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_fin_vie" id="min_fin_vie">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_fin_sab" id="hora_fin_sab">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18" selected="selected">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_fin_sab" id="min_fin_sab">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+          <td><select name="hora_fin_dom" id="hora_fin_dom">
+            <option value="00">00</option>
+            <option value="01">01</option>
+            <option value="02">02</option>
+            <option value="03">03</option>
+            <option value="04">04</option>
+            <option value="05">05</option>
+            <option value="06">06</option>
+            <option value="07">07</option>
+            <option value="08">08</option>
+            <option value="09">09</option>
+            <option value="10">10</option>
+            <option value="11">11</option>
+            <option value="12">12</option>
+            <option value="13">13</option>
+            <option value="14">14</option>
+            <option value="15">15</option>
+            <option value="16">16</option>
+            <option value="17">17</option>
+            <option value="18" selected="selected">18</option>
+            <option value="19">19</option>
+            <option value="20">20</option>
+            <option value="21">21</option>
+            <option value="22">22</option>
+            <option value="23">23</option>
+          </select>
+      :
+      <select name="min_fin_dom" id="min_fin_dom">
+        <option value="00">00</option>
+        <option value="10">10</option>
+        <option value="15">15</option>
+        <option value="20">20</option>
+        <option value="25">25</option>
+        <option value="30">30</option>
+        <option value="35">35</option>
+        <option value="40">40</option>
+        <option value="45">45</option>
+        <option value="50">50</option>
+        <option value="55">55</option>
+      </select></td>
+        </tr>
+        <tr>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>
+            <input class="boton" type="submit" name="agregar2" id="agregar2" value="AGREGAR" onclick="agrega_turno()"/>
+          </td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+          <td></td>
+        </tr>
+        <tr>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+          <td height="10"></td>
+        </tr>
+    </table>
+  </div>
+  <!--  **************    LISTADO  ***********    -->
+    {% if Turnos %}
+        <div style="background-color: #FFF;">
+        {% for turno in Turnos %}
+            <div class="box">
+                <div class="dia_1">{{ turno.nombre }} <div class="boton_eli" style="position: relative;float: right;" onclick="elimina_turno({{ turno.id }})"><div style="position:absolute;top:5px; left:9px;" onclick="elimina_turno({{ turno.id }})">X</div></div></div>
+                <table width="90%" border="0" cellspacing="0" cellpadding="0" style="text-align: center;">
+                    <tr style="background-color: #CCC;">
+                      <td>&nbsp;</td>
+                      <td>LUN</td>
+                      <td>MAR</td>
+                      <td>MIE</td>
+                      <td>JUE</td>
+                      <td>VIE</td>
+                      <td>SAB</td>
+                      <td>DOM</td>
+                    </tr>
+                    <tr>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                      <td>&nbsp;</td>
+                    </tr>
+                    <tr>
+                      <td>INICIO</td>
+                      <td>
+                        <!--  LUNES INICIO -->
+                        {% if turno.dias.0 == "1" %}
+                        {{ turno.rango.0 }}{{ turno.rango.1 }}:{{ turno.rango.3 }}{{ turno.rango.4 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                        <!--  MARTES INICIO -->
+                        {% if turno.dias.1 == "1" %}
+                        {{ turno.rango.12 }}{{ turno.rango.13 }}:{{ turno.rango.15 }}{{ turno.rango.16 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                        <!--  MIERCOLES INICIO -->
+                        {% if turno.dias.2 == "1" %}
+                        {{ turno.rango.24 }}{{ turno.rango.25 }}:{{ turno.rango.27 }}{{ turno.rango.28 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                          <!--  JUEVES INICIO -->
+                          {% if turno.dias.3 == "1" %}
+                          {{ turno.rango.36 }}{{ turno.rango.37 }}:{{ turno.rango.39 }}{{ turno.rango.40 }}
+                          {% endif %}
+                      </td>
+                      <td>
+                          <!--  VIERNES INICIO -->
+                          {% if turno.dias.4 == "1" %}
+                          {{ turno.rango.48 }}{{ turno.rango.49 }}:{{ turno.rango.51 }}{{ turno.rango.52 }}
+                          {% endif %}
+                      </td>
+                      <td>
+                          <!--  SABADO INICIO -->
+                          {% if turno.dias.5 == "1" %}
+                          {{ turno.rango.60 }}{{ turno.rango.61 }}:{{ turno.rango.63 }}{{ turno.rango.64 }}
+                          {% endif %}
+                      </td>
+                      <td>
+                          <!--  DOMINGO INICIO -->
+                          {% if turno.dias.6 == "1" %}
+                          {{ turno.rango.72 }}{{ turno.rango.73 }}:{{ turno.rango.75 }}{{ turno.rango.76 }}
+                          {% endif %}
+                      </td>
+                    </tr>
+                    <tr>
+                      <td height="10" colspan="8"></td>
+                    </tr>
+                    <tr>
+                      <td>FIN</td>
+                      <td>
+                        <!--  LUNES FIN-->
+                        {% if turno.dias.0 == "1" %}
+                        {{ turno.rango.6 }}{{ turno.rango.7 }}:{{ turno.rango.9 }}{{ turno.rango.10 }}
+                        {% endif %}
+                      </td>
+                      <td>                        
+                        <!--  MARTES FIN-->
+                        {% if turno.dias.1 == "1" %}
+                        {{ turno.rango.18 }}{{ turno.rango.19 }}:{{ turno.rango.21 }}{{ turno.rango.22 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                        <!--  MIERCOLES FIN-->
+                        {% if turno.dias.2 == "1" %}
+                        {{ turno.rango.30 }}{{ turno.rango.31 }}:{{ turno.rango.33 }}{{ turno.rango.34 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                        <!--  JUEVES FIN-->
+                        {% if turno.dias.3 == "1" %}
+                        {{ turno.rango.42 }}{{ turno.rango.43 }}:{{ turno.rango.45 }}{{ turno.rango.46 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                        <!--  VIERNES FIN-->
+                        {% if turno.dias.4 == "1" %}
+                        {{ turno.rango.54 }}{{ turno.rango.55 }}:{{ turno.rango.57 }}{{ turno.rango.58 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                        <!--  SABADO FIN-->
+                        {% if turno.dias.5 == "1" %}
+                        {{ turno.rango.66 }}{{ turno.rango.67 }}:{{ turno.rango.69 }}{{ turno.rango.70 }}
+                        {% endif %}
+                      </td>
+                      <td>
+                        <!--  DOMINGO FIN-->
+                        {% if turno.dias.6 == "1" %}
+                        {{ turno.rango.72 }}{{ turno.rango.73 }}:{{ turno.rango.75 }}{{ turno.rango.76 }}
+                        {% endif %}
+                      </td>
+                    </tr>
+                </table>
+            </div>
+    
+        {% endfor %}
+        </div>
+    {% else %}
+        <p>No existen turnos.</p>
+    {% endif %}
+
+  <script>
+function getCookie(name) {
+    let cookieValue = null;
+    if (document.cookie && document.cookie !== '') {
+        const cookies = document.cookie.split(';');
+        for (let i = 0; i < cookies.length; i++) {
+            const cookie = cookies[i].trim();
+            // Does this cookie string begin with the name we want?
+            if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                break;
+            }
+        }
+    }
+    return cookieValue;
+}
+    const csrftoken = getCookie('csrftoken');
+    async function apis(url = '', data = {}, metodo) {
+      const response = await fetch(url, {
+        method: metodo, // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Accept': "application/json",
+          'Content-Type': "application/json",
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', 
+        referrerPolicy: 'no-referrer',
+        body: JSON.stringify(data) 
+      });
+      return response.json(); 
+    }
+
+
+
+    function agrega_turno(){
+      nombre = document.getElementById('nombre').value
+      codigo = document.getElementById('codigo').value
+      if(nombre=="" || codigo==""){alert("DEBE INGRESAR NOMBRE Y CODIGO");return;}
+      
+      if(document.getElementById('lun').checked == true){lun=1}else{lun=0}
+      if(document.getElementById('mar').checked == true){mar=1}else{mar=0}
+      if(document.getElementById('mie').checked == true){mie=1}else{mie=0}
+      if(document.getElementById('jue').checked == true){jue=1}else{jue=0}
+      if(document.getElementById('vie').checked == true){vie=1}else{vie=0}
+      if(document.getElementById('sab').checked == true){sab=1}else{sab=0}
+      if(document.getElementById('dom').checked == true){dom=1}else{dom=0}
+      dias= lun.toString()+mar+mie+jue+vie+sab+dom
+      if(dias=="0000000"){alert("DEBE SELECCIONAR AL MENOS 1 DIA CON HORARIO");return;}
+      
+      h_ini_lun = document.getElementById('hora_inicio_lun').value;m_ini_lun = document.getElementById('min_inicio_lun').value
+      h_fin_lun = document.getElementById('hora_fin_lun').value;m_fin_lun = document.getElementById('min_fin_lun').value
+      h_ini_mar = document.getElementById('hora_inicio_mar').value;m_ini_mar = document.getElementById('min_inicio_mar').value
+      h_fin_mar = document.getElementById('hora_fin_mar').value;m_fin_mar = document.getElementById('min_fin_mar').value
+      h_ini_mie = document.getElementById('hora_inicio_mie').value;m_ini_mie = document.getElementById('min_inicio_mie').value
+      h_fin_mie = document.getElementById('hora_fin_mie').value;m_fin_mie = document.getElementById('min_fin_mie').value
+      h_ini_jue = document.getElementById('hora_inicio_jue').value;m_ini_jue = document.getElementById('min_inicio_jue').value
+      h_fin_jue = document.getElementById('hora_fin_jue').value;m_fin_jue = document.getElementById('min_fin_jue').value
+      h_ini_vie = document.getElementById('hora_inicio_vie').value;m_ini_vie = document.getElementById('min_inicio_vie').value
+      h_fin_vie = document.getElementById('hora_fin_vie').value;m_fin_vie = document.getElementById('min_fin_vie').value
+      h_ini_sab = document.getElementById('hora_inicio_sab').value;m_ini_sab = document.getElementById('min_inicio_sab').value
+      h_fin_sab = document.getElementById('hora_fin_sab').value;m_fin_sab = document.getElementById('min_fin_sab').value
+      h_ini_dom = document.getElementById('hora_inicio_dom').value;m_ini_dom = document.getElementById('min_inicio_dom').value
+      h_fin_dom = document.getElementById('hora_fin_dom').value;m_fin_dom = document.getElementById('min_fin_dom').value
+      
+      h_lun = h_ini_lun+":"+m_ini_lun+"-"+h_fin_lun+":"+m_fin_lun
+      h_mar = h_ini_mar+":"+m_ini_mar+"-"+h_fin_mar+":"+m_fin_mar
+      h_mie = h_ini_mie+":"+m_ini_mie+"-"+h_fin_mie+":"+m_fin_mie
+      h_jue = h_ini_jue+":"+m_ini_jue+"-"+h_fin_jue+":"+m_fin_jue
+      h_vie = h_ini_vie+":"+m_ini_vie+"-"+h_fin_vie+":"+m_fin_vie
+      h_sab = h_ini_sab+":"+m_ini_sab+"-"+h_fin_sab+":"+m_fin_sab
+      h_dom = h_ini_dom+":"+m_ini_dom+"-"+h_fin_dom+":"+m_fin_dom
+      horas = h_lun+","+h_mar+","+h_mie+","+h_jue+","+h_vie+","+h_sab+","+h_dom
+
+      var info= {nombre : nombre, codigo:codigo, dias: dias, rango:horas}
+      
+      apis('API/1.0/create_turno/', info, 'POST')
+      .then(data => {
+        console.log("RESPONSE: "+JSON.stringify(data)); 
+        if(JSON.stringify(data)=='{"nombre":["El nombre ya exyiste"]}'){alert("EL NOMBRE YA EXISTE. INTENTE OTRO");return}
+        window.location.reload()
+      });
+    }
+
+
+    function elimina_turno(ide){
+      var info= {id : ide}
+      apis('API/1.0/elimina_turno/', info, 'DELETE' )
+      .then(data => {
+        console.log("RESPONSE: "+JSON.stringify(data));
+        window.location.reload()
+      });
+    }
+</script>
