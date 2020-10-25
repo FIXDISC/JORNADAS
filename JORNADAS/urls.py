@@ -9,5 +9,7 @@ urlpatterns = [
     url('API/1.0/create_turno/', views.TurnosList.as_view()),
     url('API/1.0/elimina_turno/', views.TurnosList.as_view()),
     url('API/1.0/elimina_turno/(?P<pk>[0-9]+)/$', views.TurnosList.as_view()),
+    url('API/1.0/consulta_turno/(?P<pk>[0-9]+)/$', views.TurnosDetail.as_view()),
+    url('API/1.0/modifica_turno/(?P<pk>[0-9]+)/$', views.TurnosDetail.as_view()),
     url('API/1.0/turnos/(?P<pk>[0-9]+)/$', views.TurnosDetail.as_view())
 ]

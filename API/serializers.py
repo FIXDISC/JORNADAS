@@ -4,4 +4,4 @@ from rest_framework import serializers
 class TurnosSerializer(serializers.ModelSerializer):
     class Meta:
         model = Turnos
-        fields = ('nombre', 'codigo', 'dias', 'rango')
+        fields = ('id','nombre', 'codigo', 'dias', 'rango')

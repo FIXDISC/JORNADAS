@@ -28,17 +28,43 @@
         padding: 2px;
         border:1px solid #b1aeae;
     }
-    .boton {
-	cursor:pointer;
-	background-color:#123312;
-	width:120px;
-	height:30px;
-	border-radius:10px;
-  color: #FFF;
+  .boton {
+    cursor:pointer;
+    background-color:#123312;
+    width:120px;
+    height:30px;
+    border-radius:10px;
+    color: #FFF;
   }
   .boton:hover{
-	background-color:#72793a;
+	  background-color:#72793a;
   }
+  .boton_cancelar {
+    cursor:pointer;
+    background-color:#911100;
+    width:120px;
+    height:30px;
+    border-radius:10px;
+    color: #FFF;
+    text-align: center;
+  }
+  .boton_cancelar:hover{
+	  background-color:#ff0000;
+  }
+  .boton_modificar {
+    cursor:pointer;
+    background-color:#ff8800;
+    width:120px;
+    height:30px;
+    border-radius:10px;
+    color: #FFF;
+    text-align: center;
+  }
+  .boton_modificar:hover{
+	  background-color:#ffbb00;
+  }
+
+
   .boton_eli{
     cursor:pointer;
     background-color:#99040b;
@@ -52,6 +78,22 @@
   }
   .boton_eli:hover{
     background-color:#fc020f;
+  } 
+  .boton_mod{
+    cursor:pointer;
+    background-color:#ff8800;
+    width:30px;
+    height:30px;
+    border-radius:20px;
+    color: #FFF;
+    display: inline;
+    text-align: center;
+    font-size: 15px;
+    font-weight:900;
+    margin-right: 10px;
+  }
+  .boton_mod:hover{
+    background-color:#fcad02;
   } 
 </style>
 
@@ -664,15 +706,11 @@
         </tr>
         <tr>
           <td></td>
-          <td>
-            <input class="boton" type="submit" name="agregar2" id="agregar2" value="AGREGAR" onclick="agrega_turno()"/>
+          <td colspan="7" style="text-align: left;">
+            <div id="botones" style="text-align: left;">
+              <input class="boton" type="submit" name="agregar2" id="agregar2" value="AGREGAR" onclick="agrega_turno()"/>
+            <div></div>
           </td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
-          <td></td>
         </tr>
         <tr>
           <td height="10"></td>
@@ -687,11 +725,15 @@
     </table>
   </div>
   <!--  **************    LISTADO  ***********    -->
+  <div style="width: 100%; text-align:center; margin: 0 auto;"
     {% if Turnos %}
         <div style="background-color: #FFF;">
         {% for turno in Turnos %}
-            <div class="box">
-                <div class="dia_1">{{ turno.nombre }} <div class="boton_eli" style="position: relative;float: right;" onclick="elimina_turno({{ turno.id }})"><div style="position:absolute;top:5px; left:9px;" onclick="elimina_turno({{ turno.id }})">X</div></div></div>
+            <div class="box" id="box{{turno.id}}">
+                <div class="dia_1"><b>{{ turno.nombre|upper }}</b>&nbsp;&nbsp;({{turno.codigo|upper}})
+                  <div class="boton_eli" style="position: relative;float: right;" onclick="elimina_turno({{ turno.id }})"><div style="position:absolute;top:5px; left:9px;" onclick="elimina_turno({{ turno.id }})">X</div></div>
+                  <div class="boton_mod" style="position: relative;float: right;" onclick="modificar_turno({{ turno.id }})"><div style="position:absolute;top:5px; left:9px;" onclick="modificar_turno({{ turno.id }})">C</div></div>
+                </div>
                 <table width="90%" border="0" cellspacing="0" cellpadding="0" style="text-align: center;">
                     <tr style="background-color: #CCC;">
                       <td>&nbsp;</td>
@@ -802,7 +844,7 @@
                       <td>
                         <!--  DOMINGO FIN-->
                         {% if turno.dias.6 == "1" %}
-                        {{ turno.rango.72 }}{{ turno.rango.73 }}:{{ turno.rango.75 }}{{ turno.rango.76 }}
+                        {{ turno.rango.78 }}{{ turno.rango.79 }}:{{ turno.rango.81 }}{{ turno.rango.82 }}
                         {% endif %}
                       </td>
                     </tr>
@@ -814,7 +856,7 @@
     {% else %}
         <p>No existen turnos.</p>
     {% endif %}
-
+  </div>
   <script>
 function getCookie(name) {
     let cookieValue = null;
@@ -853,7 +895,25 @@ function getCookie(name) {
       return response.json(); 
     }
 
-
+    async function apis_get(url = '') {
+      const response = await fetch(url, {
+        method: 'GET', // *GET, POST, PUT, DELETE, etc.
+        mode: 'cors', // no-cors, *cors, same-origin
+        cache: 'no-cache', // *default, no-cache, reload, force-cache, only-if-cached
+        credentials: 'same-origin', // include, *same-origin, omit
+        headers: {
+          'Accept': "application/json",
+          'Content-Type': "application/json",
+          'Access-Control-Allow-Origin': '*',
+          'Content-Type': 'application/json',
+          'X-CSRFToken': csrftoken
+          // 'Content-Type': 'application/x-www-form-urlencoded',
+        },
+        redirect: 'follow', 
+        referrerPolicy: 'no-referrer',
+      });
+      return response.json(); 
+    }
 
     function agrega_turno(){
       nombre = document.getElementById('nombre').value
@@ -904,7 +964,6 @@ function getCookie(name) {
       });
     }
 
-
     function elimina_turno(ide){
       var info= {id : ide}
       apis('API/1.0/elimina_turno/', info, 'DELETE' )
@@ -912,5 +971,112 @@ function getCookie(name) {
         console.log("RESPONSE: "+JSON.stringify(data));
         window.location.reload()
       });
+    }
+
+    function modificar_turno(id){
+      apis_get('API/1.0/consulta_turno/'+id)
+      .then(data => {
+        console.log("RESPONSE: "+JSON.stringify(data));
+        document.getElementById('box'+id).style.opacity = "0.4";
+        document.getElementById('nombre').value = data.nombre;
+        document.getElementById('codigo').value = data.codigo;
+        if(data.dias[0]=="1"){document.getElementById('lun').checked=true;
+          hora = data.rango.substr(0,2); min = data.rango.substr(3,2)
+          document.getElementById('hora_inicio_lun').value = hora; document.getElementById('min_inicio_lun').value = min
+          hora = data.rango.substr(6,2); min = data.rango.substr(9,2)
+          document.getElementById('hora_fin_lun').value = hora; document.getElementById('min_fin_lun').value = min        }else{document.getElementById('lun').checked=false;}
+        if(data.dias[1]=="1"){document.getElementById('mar').checked=true;
+          hora = data.rango.substr(12,2); min = data.rango.substr(15,2)
+          document.getElementById('hora_inicio_mar').value = hora; document.getElementById('min_inicio_mar').value = min
+          hora = data.rango.substr(18,2); min = data.rango.substr(21,2)
+          document.getElementById('hora_fin_mar').value = hora; document.getElementById('min_fin_mar').value = min
+        }else{document.getElementById('mar').checked=false;}
+        if(data.dias[2]=="1"){document.getElementById('mie').checked=true;
+          hora = data.rango.substr(24,2); min = data.rango.substr(27,2)
+          document.getElementById('hora_inicio_mie').value = hora; document.getElementById('min_inicio_mie').value = min
+          hora = data.rango.substr(30,2); min = data.rango.substr(33,2)
+          document.getElementById('hora_fin_mie').value = hora; document.getElementById('min_fin_mie').value = min
+        }else{document.getElementById('mie').checked=false;}
+        if(data.dias[3]=="1"){document.getElementById('jue').checked=true;
+          hora = data.rango.substr(36,2); min = data.rango.substr(39,2)
+          document.getElementById('hora_inicio_jue').value = hora; document.getElementById('min_inicio_jue').value = min
+          hora = data.rango.substr(42,2); min = data.rango.substr(45,2)
+          document.getElementById('hora_fin_jue').value = hora; document.getElementById('min_fin_jue').value = min
+        }else{document.getElementById('jue').checked=false;}
+        if(data.dias[4]=="1"){document.getElementById('vie').checked=true;
+          hora = data.rango.substr(48,2); min = data.rango.substr(51,2)
+          document.getElementById('hora_inicio_vie').value = hora; document.getElementById('min_inicio_vie').value = min
+          hora = data.rango.substr(54,2); min = data.rango.substr(57,2)
+          document.getElementById('hora_fin_vie').value = hora; document.getElementById('min_fin_vie').value = min
+        }else{document.getElementById('vie').checked=false;}
+        if(data.dias[5]=="1"){document.getElementById('sab').checked=true;
+          hora = data.rango.substr(60,2); min = data.rango.substr(63,2)
+          document.getElementById('hora_inicio_sab').value = hora; document.getElementById('min_inicio_sab').value = min
+          hora = data.rango.substr(66,2); min = data.rango.substr(69,2)
+          document.getElementById('hora_fin_sab').value = hora; document.getElementById('min_fin_sab').value = min
+        }else{document.getElementById('sab').checked=false;}
+        if(data.dias[6]=="1"){document.getElementById('dom').checked=true;
+          hora = data.rango.substr(72,2); min = data.rango.substr(75,2)
+          document.getElementById('hora_inicio_dom').value = hora; document.getElementById('min_inicio_dom').value = min
+          hora = data.rango.substr(78,2); min = data.rango.substr(81,2)
+          document.getElementById('hora_fin_dom').value = hora; document.getElementById('min_fin_dom').value = min
+        }else{document.getElementById('dom').checked=false;}
+
+        document.getElementById('botones').innerHTML = `
+          <input class="boton_modificar" name="modificar" id="modificar" value="MODIFICAR" onclick="guardar_turno(`+id+`)"/>
+          <input class="boton_cancelar" name="cancelar" id="cancelar" value="CANCELAR" onclick="window.location.reload()"/>
+        `
+      });
+    }
+
+    function guardar_turno(id){
+      nombre = document.getElementById('nombre').value
+      codigo = document.getElementById('codigo').value
+      if(nombre=="" || codigo==""){alert("DEBE INGRESAR NOMBRE Y CODIGO");return;}
+      
+      if(document.getElementById('lun').checked == true){lun=1}else{lun=0}
+      if(document.getElementById('mar').checked == true){mar=1}else{mar=0}
+      if(document.getElementById('mie').checked == true){mie=1}else{mie=0}
+      if(document.getElementById('jue').checked == true){jue=1}else{jue=0}
+      if(document.getElementById('vie').checked == true){vie=1}else{vie=0}
+      if(document.getElementById('sab').checked == true){sab=1}else{sab=0}
+      if(document.getElementById('dom').checked == true){dom=1}else{dom=0}
+      dias= lun.toString()+mar+mie+jue+vie+sab+dom
+      if(dias=="0000000"){alert("DEBE SELECCIONAR AL MENOS 1 DIA CON HORARIO");return;}
+      
+      h_ini_lun = document.getElementById('hora_inicio_lun').value;m_ini_lun = document.getElementById('min_inicio_lun').value
+      h_fin_lun = document.getElementById('hora_fin_lun').value;m_fin_lun = document.getElementById('min_fin_lun').value
+      h_ini_mar = document.getElementById('hora_inicio_mar').value;m_ini_mar = document.getElementById('min_inicio_mar').value
+      h_fin_mar = document.getElementById('hora_fin_mar').value;m_fin_mar = document.getElementById('min_fin_mar').value
+      h_ini_mie = document.getElementById('hora_inicio_mie').value;m_ini_mie = document.getElementById('min_inicio_mie').value
+      h_fin_mie = document.getElementById('hora_fin_mie').value;m_fin_mie = document.getElementById('min_fin_mie').value
+      h_ini_jue = document.getElementById('hora_inicio_jue').value;m_ini_jue = document.getElementById('min_inicio_jue').value
+      h_fin_jue = document.getElementById('hora_fin_jue').value;m_fin_jue = document.getElementById('min_fin_jue').value
+      h_ini_vie = document.getElementById('hora_inicio_vie').value;m_ini_vie = document.getElementById('min_inicio_vie').value
+      h_fin_vie = document.getElementById('hora_fin_vie').value;m_fin_vie = document.getElementById('min_fin_vie').value
+      h_ini_sab = document.getElementById('hora_inicio_sab').value;m_ini_sab = document.getElementById('min_inicio_sab').value
+      h_fin_sab = document.getElementById('hora_fin_sab').value;m_fin_sab = document.getElementById('min_fin_sab').value
+      h_ini_dom = document.getElementById('hora_inicio_dom').value;m_ini_dom = document.getElementById('min_inicio_dom').value
+      h_fin_dom = document.getElementById('hora_fin_dom').value;m_fin_dom = document.getElementById('min_fin_dom').value
+      
+      h_lun = h_ini_lun+":"+m_ini_lun+"-"+h_fin_lun+":"+m_fin_lun
+      h_mar = h_ini_mar+":"+m_ini_mar+"-"+h_fin_mar+":"+m_fin_mar
+      h_mie = h_ini_mie+":"+m_ini_mie+"-"+h_fin_mie+":"+m_fin_mie
+      h_jue = h_ini_jue+":"+m_ini_jue+"-"+h_fin_jue+":"+m_fin_jue
+      h_vie = h_ini_vie+":"+m_ini_vie+"-"+h_fin_vie+":"+m_fin_vie
+      h_sab = h_ini_sab+":"+m_ini_sab+"-"+h_fin_sab+":"+m_fin_sab
+      h_dom = h_ini_dom+":"+m_ini_dom+"-"+h_fin_dom+":"+m_fin_dom
+      horas = h_lun+","+h_mar+","+h_mie+","+h_jue+","+h_vie+","+h_sab+","+h_dom
+
+      var info= {nombre : nombre, codigo:codigo, dias: dias, rango:horas}
+
+      apis('API/1.0/modifica_turno/'+id+"/", info, 'PUT')
+      .then(data => {
+        console.log("RESPONSE: "+JSON.stringify(data)); 
+        if(JSON.stringify(data)=='{"detail":"Not found."}'){alert("EL TURNO FUE ELIMINADO");return}
+        window.location.reload()
+      });
+
+
     }
 </script>
