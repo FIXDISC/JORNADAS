@@ -11,8 +11,8 @@ INSTALACIÓN
 
 ENDPOINTS LOCALES
 
-CREAR TURNO NUEVO:  http://127.0.0.1:8000/API/1.0/create_turno <br>
-CONSULTA TURNO:     http://127.0.0.1:8000/API/1.0/consulta_turno/(id) <br>
-ELIMINA TURNO:      http://127.0.0.1:8000/API/1.0/elimina_turno/(id) <br>
-MODIFICAR TURNO:    http://127.0.0.1:8000/API/1.0/modifica_turno/(id) <br>
+CREAR TURNO NUEVO:  http://127.0.0.1:8000/API/1.0/create_turno <br/>
+CONSULTA TURNO:     http://127.0.0.1:8000/API/1.0/consulta_turno/(id) <br/>
+ELIMINA TURNO:      http://127.0.0.1:8000/API/1.0/elimina_turno/(id) <br/>
+MODIFICAR TURNO:    http://127.0.0.1:8000/API/1.0/modifica_turno/(id) <br/>
 
